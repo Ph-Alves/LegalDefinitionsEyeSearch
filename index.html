@@ -27,7 +27,6 @@
       min-height: 100vh;
     }
 
-    /* ── Header ── */
     header {
       background: var(--surface);
       border-bottom: 1px solid var(--border);
@@ -55,7 +54,10 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 18px;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      color: #fff;
     }
 
     .brand-name {
@@ -65,7 +67,6 @@
       color: var(--text);
     }
 
-    /* ── Nav tabs ── */
     nav {
       display: flex;
       gap: 4px;
@@ -99,7 +100,6 @@
       border-color: var(--border);
     }
 
-    /* ── Main ── */
     main {
       max-width: 800px;
       margin: 0 auto;
@@ -109,7 +109,6 @@
     .page { display: none; }
     .page.active { display: block; }
 
-    /* ── Typography ── */
     h1 {
       font-size: 28px;
       font-weight: 700;
@@ -122,12 +121,7 @@
       font-size: 13px;
       color: var(--text-muted);
       margin-bottom: 40px;
-      display: flex;
-      gap: 16px;
-      flex-wrap: wrap;
     }
-
-    .meta span { display: flex; align-items: center; gap: 5px; }
 
     h2 {
       font-size: 18px;
@@ -161,7 +155,6 @@
     a { color: var(--accent); text-decoration: none; }
     a:hover { text-decoration: underline; }
 
-    /* ── Info box ── */
     .info-box {
       background: rgba(94, 155, 255, 0.07);
       border: 1px solid rgba(94, 155, 255, 0.2);
@@ -172,7 +165,6 @@
 
     .info-box p { color: var(--text-muted); margin: 0; }
 
-    /* ── Badge ── */
     .badge {
       display: inline-block;
       background: rgba(94, 155, 255, 0.15);
@@ -184,7 +176,6 @@
       margin-right: 6px;
     }
 
-    /* ── Footer ── */
     footer {
       text-align: center;
       padding: 32px 20px;
@@ -199,7 +190,7 @@
 
 <header>
   <div class="brand">
-    <div class="brand-icon">👁</div>
+    <div class="brand-icon">ES</div>
     <span class="brand-name">EyeSearch</span>
   </div>
   <nav>
@@ -211,13 +202,9 @@
 
 <main>
 
-  <!-- ══ PRIVACY POLICY ══ -->
   <section id="privacy" class="page active">
     <h1>Política de Privacidade</h1>
-    <div class="meta">
-      <span>📅 Última atualização: 20 de abril de 2026</span>
-      <span>🌐 Versão: 1.0</span>
-    </div>
+    <div class="meta">Última atualização: 20 de abril de 2026 &middot; Versão 1.0</div>
 
     <div class="info-box">
       <p>Esta Política de Privacidade descreve como o aplicativo <strong>EyeSearch</strong> coleta, usa e protege suas informações pessoais, em conformidade com a <strong>Lei Geral de Proteção de Dados (LGPD — Lei nº 13.709/2018)</strong> e o <strong>Regulamento Geral de Proteção de Dados (GDPR)</strong>.</p>
@@ -286,13 +273,9 @@
     <p>Esta política pode ser atualizada periodicamente. Em caso de mudanças significativas, você será notificado pelo aplicativo. A versão mais recente estará sempre disponível nesta página.</p>
   </section>
 
-  <!-- ══ TERMS OF USE ══ -->
   <section id="terms" class="page">
     <h1>Termos de Uso</h1>
-    <div class="meta">
-      <span>📅 Última atualização: 20 de abril de 2026</span>
-      <span>🌐 Versão: 1.0</span>
-    </div>
+    <div class="meta">Última atualização: 20 de abril de 2026 &middot; Versão 1.0</div>
 
     <div class="info-box">
       <p>Ao baixar ou utilizar o aplicativo <strong>EyeSearch</strong>, você concorda com estes Termos de Uso. Leia-os com atenção antes de continuar.</p>
@@ -372,13 +355,9 @@
     <p>Para questões relacionadas a estes Termos de Uso: <a href="mailto:ph.costaalves1@gmail.com">ph.costaalves1@gmail.com</a></p>
   </section>
 
-  <!-- ══ COOKIE POLICY ══ -->
   <section id="cookies" class="page">
     <h1>Política de Cookies</h1>
-    <div class="meta">
-      <span>📅 Última atualização: 20 de abril de 2026</span>
-      <span>🌐 Versão: 1.0</span>
-    </div>
+    <div class="meta">Última atualização: 20 de abril de 2026 &middot; Versão 1.0</div>
 
     <div class="info-box">
       <p>Esta política explica o uso de tecnologias de armazenamento local no aplicativo <strong>EyeSearch</strong>. Diferentemente de websites, aplicativos iOS não utilizam cookies de navegador — mas empregam mecanismos equivalentes de persistência local.</p>
