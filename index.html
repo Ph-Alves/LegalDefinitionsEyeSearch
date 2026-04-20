@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>EyeSearch — Documentos Legais</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #0a0a0f;
+      --surface: #13131a;
+      --border: #1e1e2e;
+      --accent: #5e9bff;
+      --accent-light: #a8c8ff;
+      --text: #e2e8f0;
+      --text-muted: #8892a4;
+      --radius: 12px;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", sans-serif;
+      font-size: 16px;
+      line-height: 1.7;
+      min-height: 100vh;
+    }
+
+    /* ── Header ── */
+    header {
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+      padding: 24px 20px 0;
+      text-align: center;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      backdrop-filter: blur(12px);
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+
+    .brand-icon {
+      width: 36px;
+      height: 36px;
+      background: linear-gradient(135deg, var(--accent), #7c3aed);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+    }
+
+    .brand-name {
+      font-size: 22px;
+      font-weight: 700;
+      letter-spacing: -0.3px;
+      color: var(--text);
+    }
+
+    /* ── Nav tabs ── */
+    nav {
+      display: flex;
+      gap: 4px;
+      justify-content: center;
+      overflow-x: auto;
+      scrollbar-width: none;
+    }
+
+    nav::-webkit-scrollbar { display: none; }
+
+    .tab {
+      padding: 12px 20px;
+      border-radius: 8px 8px 0 0;
+      cursor: pointer;
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--text-muted);
+      border: 1px solid transparent;
+      border-bottom: none;
+      transition: color 0.2s, background 0.2s, border-color 0.2s;
+      white-space: nowrap;
+      background: transparent;
+      user-select: none;
+    }
+
+    .tab:hover { color: var(--text); background: var(--border); }
+
+    .tab.active {
+      color: var(--accent);
+      background: var(--bg);
+      border-color: var(--border);
+    }
+
+    /* ── Main ── */
+    main {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 48px 20px 80px;
+    }
+
+    .page { display: none; }
+    .page.active { display: block; }
+
+    /* ── Typography ── */
+    h1 {
+      font-size: 28px;
+      font-weight: 700;
+      letter-spacing: -0.5px;
+      margin-bottom: 8px;
+      color: var(--text);
+    }
+
+    .meta {
+      font-size: 13px;
+      color: var(--text-muted);
+      margin-bottom: 40px;
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .meta span { display: flex; align-items: center; gap: 5px; }
+
+    h2 {
+      font-size: 18px;
+      font-weight: 600;
+      color: var(--accent-light);
+      margin: 36px 0 12px;
+      padding-bottom: 6px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    h3 {
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--text);
+      margin: 20px 0 8px;
+    }
+
+    p { color: var(--text-muted); margin-bottom: 12px; }
+    p:last-child { margin-bottom: 0; }
+
+    ul, ol {
+      color: var(--text-muted);
+      padding-left: 20px;
+      margin-bottom: 12px;
+    }
+
+    li { margin-bottom: 6px; }
+
+    strong { color: var(--text); font-weight: 600; }
+
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    /* ── Info box ── */
+    .info-box {
+      background: rgba(94, 155, 255, 0.07);
+      border: 1px solid rgba(94, 155, 255, 0.2);
+      border-radius: var(--radius);
+      padding: 16px 20px;
+      margin: 24px 0;
+    }
+
+    .info-box p { color: var(--text-muted); margin: 0; }
+
+    /* ── Badge ── */
+    .badge {
+      display: inline-block;
+      background: rgba(94, 155, 255, 0.15);
+      color: var(--accent);
+      border-radius: 6px;
+      font-size: 12px;
+      font-weight: 600;
+      padding: 2px 8px;
+      margin-right: 6px;
+    }
+
+    /* ── Footer ── */
+    footer {
+      text-align: center;
+      padding: 32px 20px;
+      font-size: 13px;
+      color: var(--text-muted);
+      border-top: 1px solid var(--border);
+      margin-top: 40px;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="brand">
+    <div class="brand-icon">👁</div>
+    <span class="brand-name">EyeSearch</span>
+  </div>
+  <nav>
+    <div class="tab active" onclick="showPage('privacy')">Política de Privacidade</div>
+    <div class="tab" onclick="showPage('terms')">Termos de Uso</div>
+    <div class="tab" onclick="showPage('cookies')">Política de Cookies</div>
+  </nav>
+</header>
+
+<main>
+
+  <!-- ══ PRIVACY POLICY ══ -->
+  <section id="privacy" class="page active">
+    <h1>Política de Privacidade</h1>
+    <div class="meta">
+      <span>📅 Última atualização: 20 de abril de 2026</span>
+      <span>🌐 Versão: 1.0</span>
+    </div>
+
+    <div class="info-box">
+      <p>Esta Política de Privacidade descreve como o aplicativo <strong>EyeSearch</strong> coleta, usa e protege suas informações pessoais, em conformidade com a <strong>Lei Geral de Proteção de Dados (LGPD — Lei nº 13.709/2018)</strong> e o <strong>Regulamento Geral de Proteção de Dados (GDPR)</strong>.</p>
+    </div>
+
+    <h2>1. Quem somos</h2>
+    <p>O <strong>EyeSearch</strong> é um aplicativo iOS desenvolvido por uma equipe acadêmica independente, com o objetivo de auxiliar pessoas com baixa visão a localizar objetos perdidos por meio da câmera do dispositivo e adesivos identificadores. O responsável pelo tratamento dos dados é a equipe de desenvolvimento do projeto, identificada neste documento como <strong>"nós"</strong>, <strong>"nosso"</strong> ou <strong>"EyeSearch"</strong>.</p>
+    <p>Para dúvidas ou solicitações, entre em contato: <a href="mailto:ph.costaalves1@gmail.com">ph.costaalves1@gmail.com</a></p>
+
+    <h2>2. Dados que coletamos</h2>
+    <p>O EyeSearch foi projetado com o princípio de <strong>minimização de dados</strong>. Não criamos contas de usuário e não coletamos dados pessoais identificáveis além do estritamente necessário para o funcionamento do aplicativo.</p>
+
+    <h3>2.1 Dados de câmera e imagem</h3>
+    <p>A câmera é acessada <strong>exclusivamente em tempo real</strong> durante a busca de objetos. Nenhuma imagem ou vídeo é salvo, enviado a servidores ou compartilhado com terceiros. O processamento ocorre inteiramente no dispositivo (<em>on-device</em>).</p>
+
+    <h3>2.2 Dados de localização</h3>
+    <p>A localização aproximada pode ser usada para enviar notificações personalizadas quando você se locomove, lembrando-o de verificar seus pertences. Essa funcionalidade é opcional, utiliza apenas acesso em segundo plano quando autorizado, e os dados de localização <strong>nunca são transmitidos</strong> para servidores externos.</p>
+
+    <h3>2.3 Preferências e configurações locais</h3>
+    <p>Suas preferências (tema, contraste, som, haptics, idioma) são armazenadas localmente no dispositivo por meio do <strong>UserDefaults</strong> da Apple. Esses dados não saem do seu iPhone.</p>
+
+    <h3>2.4 Dados de uso do chatbot (Foundation Models)</h3>
+    <p>O chatbot integrado ao app utiliza o <strong>Apple Foundation Models</strong>, que processa as interações <strong>inteiramente no dispositivo</strong>, sem conexão com servidores externos. Nenhuma conversa é registrada ou transmitida.</p>
+
+    <h2>3. Como usamos suas informações</h2>
+    <ul>
+      <li>Permitir o funcionamento das funcionalidades de câmera e detecção de adesivos;</li>
+      <li>Enviar notificações de localização quando autorizado pelo usuário;</li>
+      <li>Salvar suas preferências de acessibilidade e personalização;</li>
+      <li>Gerar PDFs de adesivos para impressão, exclusivamente no dispositivo;</li>
+      <li>Responder dúvidas via chatbot de forma local e privada.</li>
+    </ul>
+
+    <h2>4. Compartilhamento de dados</h2>
+    <p>O EyeSearch <strong>não vende, aluga, compartilha ou transfere</strong> qualquer dado pessoal para terceiros. Todas as tecnologias utilizadas pertencem ao ecossistema Apple (<em>AVFoundation, CoreLocation, Foundation Models, ARKit</em>) e operam sob a Política de Privacidade da Apple.</p>
+
+    <h2>5. Permissões do dispositivo</h2>
+    <p>O aplicativo pode solicitar as seguintes permissões, que você pode revogar a qualquer momento em <strong>Ajustes &gt; EyeSearch</strong>:</p>
+    <ul>
+      <li><span class="badge">Câmera</span> Obrigatória para detecção de adesivos;</li>
+      <li><span class="badge">Localização</span> Opcional, para notificações de deslocamento;</li>
+      <li><span class="badge">Notificações</span> Opcional, para alertas personalizados;</li>
+      <li><span class="badge">Lanterna</span> Ativada automaticamente durante a busca para melhor visibilidade.</li>
+    </ul>
+
+    <h2>6. Retenção e exclusão de dados</h2>
+    <p>Como todos os dados são armazenados localmente, você pode excluí-los a qualquer momento desinstalando o aplicativo. Isso remove permanentemente todas as configurações e dados associados ao EyeSearch do seu dispositivo.</p>
+
+    <h2>7. Segurança</h2>
+    <p>Adotamos as práticas de segurança recomendadas pela Apple para desenvolvimento iOS. Como os dados sensíveis (câmera, localização) são processados exclusivamente no dispositivo, o risco de exposição por violações de servidor é inexistente.</p>
+
+    <h2>8. Crianças</h2>
+    <p>O EyeSearch é destinado a usuários com <strong>16 anos ou mais</strong>. Não coletamos intencionalmente dados de menores de 16 anos. Caso você suspeite que um menor utilizou o aplicativo, entre em contato conosco.</p>
+
+    <h2>9. Seus direitos (LGPD)</h2>
+    <p>Conforme a LGPD, você tem o direito de:</p>
+    <ul>
+      <li>Confirmar a existência de tratamento de dados pessoais;</li>
+      <li>Acessar, corrigir ou eliminar seus dados;</li>
+      <li>Revogar o consentimento a qualquer tempo;</li>
+      <li>Obter informações sobre compartilhamento de dados.</li>
+    </ul>
+    <p>Para exercer esses direitos, entre em contato: <a href="mailto:ph.costaalves1@gmail.com">ph.costaalves1@gmail.com</a></p>
+
+    <h2>10. Alterações nesta política</h2>
+    <p>Esta política pode ser atualizada periodicamente. Em caso de mudanças significativas, você será notificado pelo aplicativo. A versão mais recente estará sempre disponível nesta página.</p>
+  </section>
+
+  <!-- ══ TERMS OF USE ══ -->
+  <section id="terms" class="page">
+    <h1>Termos de Uso</h1>
+    <div class="meta">
+      <span>📅 Última atualização: 20 de abril de 2026</span>
+      <span>🌐 Versão: 1.0</span>
+    </div>
+
+    <div class="info-box">
+      <p>Ao baixar ou utilizar o aplicativo <strong>EyeSearch</strong>, você concorda com estes Termos de Uso. Leia-os com atenção antes de continuar.</p>
+    </div>
+
+    <h2>1. Aceitação dos termos</h2>
+    <p>Estes Termos de Uso regulam o relacionamento entre você (<strong>"Usuário"</strong>) e a equipe de desenvolvimento do <strong>EyeSearch</strong> (<strong>"nós"</strong>). Ao instalar ou usar o aplicativo, você declara ter lido, compreendido e aceito estes termos integralmente.</p>
+    <p>Se você não concorda com qualquer parte destes termos, não utilize o aplicativo.</p>
+
+    <h2>2. Descrição do serviço</h2>
+    <p>O EyeSearch é um aplicativo iOS que auxilia pessoas com baixa visão a localizar objetos pessoais perdidos por meio da câmera do dispositivo, usando adesivos identificadores personalizados. O aplicativo oferece as seguintes funcionalidades:</p>
+    <ul>
+      <li>Detecção e localização de objetos adesivados via câmera em tempo real;</li>
+      <li>Geração de adesivos em PDF para impressão;</li>
+      <li>Registro de até 5 objetos (plano gratuito) ou ilimitados (assinatura);</li>
+      <li>Notificações personalizadas baseadas em deslocamento;</li>
+      <li>Chatbot de suporte com inteligência artificial local;</li>
+      <li>Widgets e integração com Siri/Apple Intelligence.</li>
+    </ul>
+
+    <h2>3. Requisitos de uso</h2>
+    <h3>3.1 Elegibilidade</h3>
+    <p>Para utilizar o EyeSearch você deve:</p>
+    <ul>
+      <li>Ter <strong>16 anos ou mais</strong>;</li>
+      <li>Possuir um dispositivo iOS compatível com os requisitos técnicos do aplicativo;</li>
+      <li>Concordar com estes termos e com a Política de Privacidade.</li>
+    </ul>
+
+    <h3>3.2 Requisitos técnicos</h3>
+    <p>O aplicativo está disponível exclusivamente para dispositivos <strong>iOS</strong>. É necessário câmera funcional e, para algumas funcionalidades, acesso à internet e conexão habilitada ao iCloud.</p>
+
+    <h2>4. Conta e planos</h2>
+    <h3>4.1 Plano gratuito</h3>
+    <p>O plano gratuito permite o registro de até <strong>5 objetos</strong> e o acesso à maioria das funcionalidades do aplicativo sem custo.</p>
+
+    <h3>4.2 Assinatura</h3>
+    <p>Usuários que desejam registrar mais de 5 objetos podem adquirir uma <strong>assinatura paga</strong> que desbloqueia itens ilimitados. Os detalhes de preço, duração e renovação automática estão disponíveis na App Store no momento da compra. As cobranças são gerenciadas exclusivamente pela <strong>Apple</strong>, sujeitas à Política de Compras e Reembolso da App Store.</p>
+
+    <h3>4.3 Cancelamento</h3>
+    <p>Você pode cancelar sua assinatura a qualquer momento por meio das <strong>Ajustes da Apple ID</strong> no seu dispositivo. O cancelamento é efetivo ao final do período já pago.</p>
+
+    <h2>5. Uso aceitável</h2>
+    <p>Ao utilizar o EyeSearch, você concorda em:</p>
+    <ul>
+      <li>Usar o aplicativo exclusivamente para os fins a que se destina;</li>
+      <li>Não utilizar o aplicativo para monitorar, rastrear ou filmar pessoas sem consentimento;</li>
+      <li>Não tentar reverter a engenharia, descompilar ou modificar o aplicativo;</li>
+      <li>Não utilizar o aplicativo para atividades ilegais;</li>
+      <li>Respeitar os direitos de terceiros, incluindo direitos de privacidade e propriedade intelectual.</li>
+    </ul>
+
+    <h2>6. Propriedade intelectual</h2>
+    <p>O aplicativo EyeSearch, incluindo seu código-fonte, design, logotipo, textos e demais elementos, é protegido por direitos autorais e outras leis de propriedade intelectual. Nenhuma parte do aplicativo pode ser reproduzida, distribuída ou utilizada comercialmente sem autorização prévia por escrito da equipe de desenvolvimento.</p>
+    <p>Os adesivos gerados pelo aplicativo são de uso pessoal e livre para o usuário.</p>
+
+    <h2>7. Limitação de responsabilidade</h2>
+    <p>O EyeSearch é fornecido <strong>"no estado em que se encontra"</strong>, sem garantias expressas ou implícitas. Em nenhuma hipótese a equipe de desenvolvimento será responsável por:</p>
+    <ul>
+      <li>Falhas na detecção de objetos em condições adversas de iluminação ou ambiente;</li>
+      <li>Perda de dados por desinstalação ou redefinição do dispositivo;</li>
+      <li>Danos indiretos, incidentais ou consequenciais decorrentes do uso do aplicativo;</li>
+      <li>Interrupções no serviço por manutenção, atualizações ou falhas técnicas.</li>
+    </ul>
+    <p>O aplicativo é uma ferramenta de auxílio e <strong>não substitui</strong> cuidados médicos, soluções assistivas profissionais ou outros recursos de acessibilidade.</p>
+
+    <h2>8. Atualizações e modificações</h2>
+    <p>Reservamo-nos o direito de atualizar o aplicativo e modificar estes termos a qualquer momento. Alterações significativas serão comunicadas por notificação no aplicativo ou por atualização desta página. O uso continuado do aplicativo após alterações constitui aceitação dos novos termos.</p>
+
+    <h2>9. Rescisão</h2>
+    <p>Podemos suspender ou encerrar seu acesso ao aplicativo em caso de violação destes termos. Você pode encerrar seu uso a qualquer momento desinstalando o aplicativo do seu dispositivo.</p>
+
+    <h2>10. Legislação aplicável</h2>
+    <p>Estes Termos de Uso são regidos pelas leis da <strong>República Federativa do Brasil</strong>. Qualquer conflito será resolvido no foro da comarca competente no Brasil, ressalvadas disposições específicas de legislação aplicável ao usuário em seu país de residência.</p>
+
+    <h2>11. Contato</h2>
+    <p>Para questões relacionadas a estes Termos de Uso: <a href="mailto:ph.costaalves1@gmail.com">ph.costaalves1@gmail.com</a></p>
+  </section>
+
+  <!-- ══ COOKIE POLICY ══ -->
+  <section id="cookies" class="page">
+    <h1>Política de Cookies</h1>
+    <div class="meta">
+      <span>📅 Última atualização: 20 de abril de 2026</span>
+      <span>🌐 Versão: 1.0</span>
+    </div>
+
+    <div class="info-box">
+      <p>Esta política explica o uso de tecnologias de armazenamento local no aplicativo <strong>EyeSearch</strong>. Diferentemente de websites, aplicativos iOS não utilizam cookies de navegador — mas empregam mecanismos equivalentes de persistência local.</p>
+    </div>
+
+    <h2>1. O EyeSearch usa cookies?</h2>
+    <p>Não. O EyeSearch é um aplicativo nativo para <strong>iOS</strong> e, por isso, <strong>não utiliza cookies de navegador</strong> no sentido tradicional do termo. Cookies são uma tecnologia de armazenamento específica para ambientes web, e o EyeSearch não possui interface web nem WebView que faça uso de cookies.</p>
+    <p>No entanto, para garantir transparência total, esta política descreve as <strong>tecnologias equivalentes de armazenamento local</strong> utilizadas pelo aplicativo.</p>
+
+    <h2>2. Armazenamento local utilizado</h2>
+
+    <h3>2.1 UserDefaults</h3>
+    <p>O EyeSearch utiliza o <strong>UserDefaults</strong>, um mecanismo nativo do iOS equivalente a cookies de preferência, para salvar localmente:</p>
+    <ul>
+      <li>Preferências de tema (claro/escuro/contraste);</li>
+      <li>Configurações de acessibilidade (haptics, som);</li>
+      <li>Idioma selecionado;</li>
+      <li>Estado do onboarding (se o usuário já passou pela introdução);</li>
+      <li>Objetos registrados pelo usuário.</li>
+    </ul>
+    <p>Esses dados são armazenados <strong>exclusivamente no dispositivo</strong>, não são enviados a servidores externos e ficam disponíveis apenas ao EyeSearch.</p>
+
+    <h3>2.2 Armazenamento de arquivos locais</h3>
+    <p>PDFs de adesivos gerados pelo usuário podem ser salvos temporariamente no <strong>diretório de documentos do aplicativo</strong> para permitir a visualização e impressão. Esses arquivos permanecem no dispositivo até que o usuário os exclua ou desinstale o aplicativo.</p>
+
+    <h3>2.3 Modelos de machine learning</h3>
+    <p>Os modelos de ML e Foundation Models utilizados pelo aplicativo ficam armazenados no dispositivo após o download inicial e são utilizados para processamento local. Nenhum dado de inferência é transmitido externamente.</p>
+
+    <h2>3. Análise e rastreamento</h2>
+    <p>O EyeSearch <strong>não utiliza</strong> ferramentas de análise de comportamento, rastreamento de uso, SDKs de publicidade ou qualquer tecnologia de perfilamento do usuário. Não há integração com Google Analytics, Firebase Analytics, Mixpanel ou serviços similares.</p>
+
+    <h2>4. Tecnologias de terceiros</h2>
+    <p>O aplicativo opera integralmente dentro do ecossistema Apple e utiliza apenas frameworks nativos do iOS. Não há SDKs de terceiros que realizem armazenamento de dados no dispositivo.</p>
+
+    <h2>5. Controle e exclusão</h2>
+    <p>Como todos os dados são armazenados localmente no seu dispositivo, você mantém controle total:</p>
+    <ul>
+      <li><strong>Redefinir configurações</strong>: disponível nas Configurações do aplicativo;</li>
+      <li><strong>Excluir todos os dados</strong>: desinstalar o EyeSearch remove permanentemente todos os dados locais;</li>
+      <li><strong>Revogar permissões</strong>: em <em>Ajustes do iPhone &gt; EyeSearch</em>, você pode revogar acesso à câmera, localização e notificações.</li>
+    </ul>
+
+    <h2>6. Página web e GitHub Pages</h2>
+    <p>Esta página de documentos legais é hospedada no <strong>GitHub Pages</strong>. O GitHub pode coletar dados técnicos de navegação (como endereço IP) para fins operacionais, conforme a <a href="https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement" target="_blank" rel="noopener">Política de Privacidade do GitHub</a>. Esta página não utiliza cookies analíticos próprios.</p>
+
+    <h2>7. Contato</h2>
+    <p>Para dúvidas sobre esta política: <a href="mailto:ph.costaalves1@gmail.com">ph.costaalves1@gmail.com</a></p>
+  </section>
+
+</main>
+
+<footer>
+  <p>© 2026 EyeSearch. Todos os direitos reservados.</p>
+  <p style="margin-top:6px">Desenvolvido por Paulo Henrique, Victória Martins, Daniela Valadares, Raquel Souza e Manoel Pedro.</p>
+</footer>
+
+<script>
+  function showPage(id) {
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+    document.getElementById(id).classList.add('active');
+    event.currentTarget.classList.add('active');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  // Hash-based navigation for direct links
+  function loadFromHash() {
+    const hash = location.hash.replace('#', '');
+    const valid = ['privacy', 'terms', 'cookies'];
+    if (valid.includes(hash)) {
+      document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+      document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+      document.getElementById(hash).classList.add('active');
+      const idx = valid.indexOf(hash);
+      document.querySelectorAll('.tab')[idx].classList.add('active');
+    }
+  }
+
+  // Update hash when navigating
+  document.querySelectorAll('.tab').forEach((tab, i) => {
+    const pages = ['privacy', 'terms', 'cookies'];
+    tab.addEventListener('click', () => { history.replaceState(null, '', '#' + pages[i]); });
+  });
+
+  window.addEventListener('hashchange', loadFromHash);
+  loadFromHash();
+</script>
+
+</body>
+</html>

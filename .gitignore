@@ -60,3 +60,55 @@ fastlane/report.xml
 fastlane/Preview.html
 fastlane/screenshots/**/*.png
 fastlane/test_output
+
+# macOS
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+*.swp
+*~
+
+# Claude Code
+.claude/
+
+# Documentos internos / especificações
+*.docx
+*.doc
+*.pages
+*.numbers
+*.key
+
+# Xcode additional
+*.xccheckout
+*.moved-aside
+*.xcuserstate
+*.xcscmblueprint
+DerivedData/
+
+# CocoaPods
+Pods/
+
+# SPM resolved (optional — uncomment if not tracking)
+# Package.resolved
+
+# Environment / secrets
+.env
+.env.local
+*.pem
+*.p12
+*.mobileprovision
+*.cer
+*.p8
+
+# Node (caso use ferramentas JS)
+node_modules/
+npm-debug.log*
+
+# Generated
+*.ipa
+dist/
+build/
